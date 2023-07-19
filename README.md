@@ -11,6 +11,9 @@ the company’s future success depends on maximizing the number of annual
 memberships. Therefore, your team wants to understand how casual riders and 
 annual members use Cyclistic bikes differently.
 
+### Cyclistic
+In 2016, Cyclistic launched a successful bike-share offering. Since then, the program has grown to a fleet of 5,824 bicycles that are geotracked and locked into a network of 692 stations across Chicago. The bikes can be unlocked from one station and returned to any other station in the system anytime. They have a flexibile pricing plans: single-ride passes, full-day passes, and annual memberships. Customers who purchase single-ride or full-day passes are referred to as casual riders. Customers who purchase annual memberships are Cyclistic members.
+
 ## Business Task
 
 * How do annual members and casual riders use Cyclistic bikes differently?
@@ -25,13 +28,16 @@ Data used is 05-22 to 04-23
 
 ## Setting up work environment
 
-```{r setting up work environment}
+```r
 library(tidyverse)
 library(scales)
 ```
 
 Collecting the last 12 months of data in the same folder reading all into R
 
+<details>
+  <summary>Click me</summary>
+  
 ```{r gathering data}
 csv_list <- c("202205-divvy-tripdata.csv", "202206-divvy-tripdata.csv",
               "202207-divvy-tripdata.csv", "202208-divvy-tripdata.csv",
@@ -49,7 +55,10 @@ for (csv in csv_list) {
 }
 ```
 
+</details>
+
 looped over a list of all 12 months merged into 1 data frame.
+
 
 ```{r}
 colnames(all_trips)
@@ -97,6 +106,7 @@ all_trips <- filter(all_trips, ride_length >= 0)
 ## Analysis
 
 Overall average, median, max and min ride length.
+<details>
 
 ```{r}
 all_trips %>% 
@@ -105,6 +115,8 @@ all_trips %>%
             max_ride_length = max(ride_length),
             min_ride_length = min(ride_length))
 ```
+</details>
+
 
 Comparing number of rides and ride length over the days of the week and member status.
 
