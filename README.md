@@ -127,7 +127,7 @@ all_trips %>%
             max_length = max(ride_length), min_length = min(ride_length), .groups = 'drop')
 ```
 
-## Data Visuals
+## Share
 
 Daily Usage
 
@@ -155,11 +155,12 @@ all_trips %>%
 ```
 ## Act
 
-Now that we have seen the data of how members and casual users ride bikes
+After analysing the data I have found how casual bike rider and annual member use the bikes differenetly, why a casual rider may become a annual member, and how digital media can be used to influence casual riders. Based off those findings here are my conclusions.
 
-The casual make longer trips.
+* Members use the bikes more than casual riders.
+* Members bike trips ride are shorter than casual rider, about 10-11mins trips.
+* Casual riders use the bikes for longer periods of time mostly on the weekends.
+* Casual riders mostly using the bikes around summer time(May-Sept.)
 
-If a casual uses the bike frequently over the week it would be beneficial to them.
-
-The use of digital media could be used to bring this inform casual riders of the benefits of becoming an annul member. 
+To increase annual members i would suggest, through the use of digiatal media, increase the awareness of the benifits of being an annual member especially during the summer months.
 
