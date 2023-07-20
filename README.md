@@ -36,7 +36,7 @@ library(scales)
 Collecting the last 12 months of data in the same folder reading all into R
 
 <details>
-  <summary>Click me</summary>
+  <summary>Code</summary>
   
 ```{r gathering data}
 csv_list <- c("202205-divvy-tripdata.csv", "202206-divvy-tripdata.csv",
@@ -129,10 +129,14 @@ all_trips %>%
 
 ## Share
 
-Daily Usage
+### Daily Usage
+![Daily use](usage_per_weekday.png)
+* Causal users use the bikes mostly on the weekends start Thursday.
+* Annual memebers use the bikes throughout the week peaking on Wednesday.
 
-* Members make more trips than casual throughout the week especially during the middle of the week.
-
+<details>
+  <summary>Code</summary>
+  
 ```{r daily usage}
 all_trips %>% 
   group_by(member_casual, day_of_the_week) %>% 
@@ -142,7 +146,58 @@ all_trips %>%
   geom_col(position = "dodge") +
   labs(x = "Weekdays", y = "Numer of Rides", title = "Usage per Weekday") +
   scale_y_continuous(labels = comma)
+ggsave("Usage_per_weekday.png")
 ```
+</details>
+
+### Monthly Usage
+![Monthly use](usage_per_month.png)
+* Casual users use the bikes mostly in the summer months starting in April and tapering down in September.
+* Annual memebers use the bikes mostly in the summer months starting in March and tapering down in November.
+
+<details>
+  <summary>Code</summary>
+  
+```{r monthly usage}
+all_trips %>% 
+  group_by(member_casual, month) %>% 
+  summarise(number_of_rides = n(), average_duration = mean(ride_length), .groups = 'drop') %>% 
+  arrange(member_casual, month) %>% 
+  ggplot(aes(x = month, y = number_of_rides, fill = member_casual)) +
+  geom_col(position = "dodge") + 
+  labs(x = "Months", y = "Numer of Rides",title = "Usage Per Month") +
+  scale_y_continuous(labels = comma) +
+  theme(axis.text.x = element_text(angle = 45))
+ggsave("Usage_per_month.png")
+```
+</details>
+
+### Duration Per Weekday
+![Weekday Duration](weekday_duration.png)
+* Casual users make longer trips throughout the week especially on the weekends.
+* Annual memebers make short consistent trips throughout the week.
+<details>
+  <summary>Code</summary>
+  
+```{r weekday duration}
+all_trips %>% 
+  group_by(member_casual, day_of_the_week) %>% 
+  summarise(number_of_rides = n(), average_duration = mean(ride_length), .groups = 'drop') %>% 
+  arrange(member_casual, day_of_the_week) %>% 
+  ggplot(aes(x = day_of_the_week, y = average_duration, fill = member_casual)) +
+  geom_col(position = "dodge") + theme(axis.text.x = element_text(angle = 45)) +
+  labs(x = "Weekdays", y = "Average Trip Duration", title = "Duration Per Weekday")
+ggsave("weekday_duration.png")
+```
+</details>
+
+### Duration Per Month
+![Monthly Duration](monthly_duration.png)
+* Casual users make longer trips overall peaking April tapering down for the rest of the year.
+* Annual memebers make short consistent trips all year round.
+
+<details>
+  <summary>Code</summary>
 
 ```{r monthly duration}
 all_trips %>% 
@@ -152,7 +207,10 @@ all_trips %>%
   ggplot(aes(x = month, y = average_duration, fill = member_casual)) +
   geom_col(position = "dodge") + theme(axis.text.x = element_text(angle = 45)) +
   labs(x = "Months", y = "Average Trip Duration", title = "Duration Per Month")
+ggsave("monthly_duration.png")
 ```
+</details>
+
 ## Act
 
 After analysing the data I have found how casual bike rider and annual member use the bikes differenetly, why a casual rider may become a annual member, and how digital media can be used to influence casual riders. Based off those findings here are my conclusions.
@@ -162,5 +220,5 @@ After analysing the data I have found how casual bike rider and annual member us
 * Casual riders use the bikes for longer periods of time mostly on the weekends.
 * Casual riders mostly using the bikes around summer time(May-Sept.)
 
-To increase annual members i would suggest, through the use of digiatal media, increase the awareness of the benifits of being an annual member especially during the summer months.
+To increase annual members I would suggest, through the use of digiatal media, increase the awareness of the benifits of being an annual member especially during the summer months.
 
